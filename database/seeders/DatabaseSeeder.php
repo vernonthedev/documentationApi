@@ -16,8 +16,12 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'vernonthedev',
+            'email' => 'vernonthedev@gmail.com',
+        ]);
+        // run the customer seeder to insert the generated customer info to the db
+        $this->call([
+            CustomerSeeder::class,
         ]);
     }
 }
