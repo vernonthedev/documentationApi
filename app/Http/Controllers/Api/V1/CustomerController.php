@@ -53,10 +53,16 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function show(Customer $customer, Request $request)
     {
-        //display only one customer
-        // return $customer;
+        $includeInvoices = $request->query('includeInvoices'); 
+
+        // incase we would like to show the invoices then we load the method fr the missing invoices
+        if($includeInvoices){
+            return new CustomerResource($customer->loadMissing('invoices'));
+        }
+
+
         return new CustomerResource($customer); //use the CustomerResource to display the contents within the customer output
     }
 
