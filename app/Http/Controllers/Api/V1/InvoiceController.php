@@ -29,8 +29,9 @@ class InvoiceController extends Controller
             return new InvoiceCollection(Invoice::paginate());
         }else
         {
+            $invoices = Invoice::where($queryItems)->paginate();
             // else return the filtered customers using the inserted query terms
-            return new InvoiceCollection(Invoice::where($queryItems)->paginate());
+            return new InvoiceCollection($invoices->appends($request->query()));
         }
 
         // FOR WHEN WE HAVEN'T APPLIED THE FILTERS

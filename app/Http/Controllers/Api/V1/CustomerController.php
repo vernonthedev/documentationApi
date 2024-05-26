@@ -29,8 +29,9 @@ class CustomerController extends Controller
             return new CustomerCollection(Customer::paginate());
         }else
         {
+            $customers = Customer::where($queryItems)->paginate();
             // else return the filtered customers using the inserted query terms
-            return new CustomerCollection(Customer::where($queryItems)->paginate());
+            return new CustomerCollection($customers->appends($request->query()));
         }
 
         // FOR WHEN WE HAVEN'T APPLIED THE FILTERS
