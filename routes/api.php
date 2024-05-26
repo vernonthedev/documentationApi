@@ -9,7 +9,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// api/v1
+// Api Routes with the following format = api/v1
 Route::group(['prefix'=> 'v1', 'namespace'=>'App\Http\Controllers\Api\V1'], function () {
     Route::apiResource('customers',CustomerController::class);
     Route::apiResource('invoices', InvoiceController::class);

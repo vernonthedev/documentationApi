@@ -8,15 +8,34 @@ use App\Models\Customer;
 use App\Http\Controllers\Controller;    
 use App\Http\Resources\V1\CustomerResource;
 use App\Http\Resources\V1\CustomerCollection;
+use Illuminate\Http\Request;
+use App\Services\V1\CustomerQuery;
+
 class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Import the customized & allowed queries and apply them to the data when 
+        //they are requested
+        $filter = new CustomerQuery();
+        $queryItems = $filter->transform($request); // Format of the filtering query operands = [['column','operator','value']]
+
+        if(count($queryItems) == 0)
+        {
+            // if there are no filters or search params inside our get request then return all the customers and paginated
+            return new CustomerCollection(Customer::paginate());
+        }else
+        {
+            // else return the filtered customers using the inserted query terms
+            return new CustomerCollection(Customer::where($queryItems)->paginate());
+        }
+
+        // FOR WHEN WE HAVEN'T APPLIED THE FILTERS
         // Modify the output of the customers by using the collection that was customised to the developers needs & requirements
-        return new CustomerCollection(Customer::paginate());
+        // return new CustomerCollection(Customer::paginate());
     }
 
     /**
