@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\V1\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use App\Http\Controllers\Controller;    
@@ -10,6 +10,7 @@ use App\Http\Resources\V1\CustomerResource;
 use App\Http\Resources\V1\CustomerCollection;
 use Illuminate\Http\Request;
 use App\Filters\V1\CustomersFilter;
+
 
 class CustomerController extends Controller
 {
@@ -34,20 +35,14 @@ class CustomerController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreCustomerRequest $request)
     {
-        //
+        //save all the api customer data received
+        return new CustomerResource(Customer::create($request->all()));
     }
 
     /**
@@ -66,13 +61,6 @@ class CustomerController extends Controller
         return new CustomerResource($customer); //use the CustomerResource to display the contents within the customer output
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Customer $customer)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
