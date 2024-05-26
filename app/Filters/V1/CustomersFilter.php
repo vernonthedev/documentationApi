@@ -1,8 +1,9 @@
 <?php
-namespace App\Services\V1;
+namespace App\Filters\V1;
 use Illuminate\Http\Request;
+use App\Filters\ApiFilter;
 
-class CustomerQuery{
+class CustomersFilter extends ApiFilter{
     // allowed query operators that can be used on the relevant variables names or table columns
     protected $safeParms = [
         'name' => ['eq'],

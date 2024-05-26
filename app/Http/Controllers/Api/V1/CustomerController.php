@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\CustomerResource;
 use App\Http\Resources\V1\CustomerCollection;
 use Illuminate\Http\Request;
-use App\Services\V1\CustomerQuery;
+use App\Filters\V1\CustomersFilter;
 
 class CustomerController extends Controller
 {
@@ -20,7 +20,7 @@ class CustomerController extends Controller
     {
         // Import the customized & allowed queries and apply them to the data when 
         //they are requested
-        $filter = new CustomerQuery();
+        $filter = new CustomersFilter();
         $queryItems = $filter->transform($request); // Format of the filtering query operands = [['column','operator','value']]
 
         if(count($queryItems) == 0)
