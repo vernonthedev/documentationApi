@@ -24,6 +24,8 @@ class CustomerResource extends JsonResource
             "city"=> $this->city,
             "state"=> $this->state,
             "postalCode"=> $this->postal_code,
+            //incase the user also wants the invoices, thats when we also return them
+            "invoices"=> InvoiceResource::collection($this->whenLoaded("invoices")),
         ];
     }
 }

@@ -21,22 +21,17 @@ class CustomerController extends Controller
         // Import the customized & allowed queries and apply them to the data when 
         //they are requested
         $filter = new CustomersFilter();
-        $queryItems = $filter->transform($request); // Format of the filtering query operands = [['column','operator','value']]
+        $filterItems = $filter->transform($request); // Format of the filtering query operands = [['column','operator','value']]
 
-        if(count($queryItems) == 0)
-        {
-            // if there are no filters or search params inside our get request then return all the customers and paginated
-            return new CustomerCollection(Customer::paginate());
-        }else
-        {
-            $customers = Customer::where($queryItems)->paginate();
-            // else return the filtered customers using the inserted query terms
-            return new CustomerCollection($customers->appends($request->query()));
+        // incase the request has includeInvoices, make sure we return users that have invoices
+        $includeInvoices = $request->query('includeInvoices'); 
+        $customers = Customer::where($filterItems);
+        if( $includeInvoices ) {
+            $customers = $customers->with('invoices');
         }
+        // else return the filtered customers using the inserted query terms
+        return new CustomerCollection($customers->paginate()->appends($request->query()));
 
-        // FOR WHEN WE HAVEN'T APPLIED THE FILTERS
-        // Modify the output of the customers by using the collection that was customised to the developers needs & requirements
-        // return new CustomerCollection(Customer::paginate());
     }
 
     /**
