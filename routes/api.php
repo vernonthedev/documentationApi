@@ -11,7 +11,7 @@ Route::get('/user', function (Request $request) {
 
 // Api Routes with the following format = api/v1
 // and protect our endpoints with sanctum
-Route::group(['prefix'=> 'v1', 'namespace'=>'App\Http\Controllers\Api\V1', 'auth:sanctum'], function () {
+Route::group(['prefix'=> 'v1', 'namespace'=>'App\Http\Controllers\Api\V1', 'middleware'=>'auth:sanctum'], function () {
     Route::apiResource('customers',CustomerController::class);
     Route::apiResource('invoices', InvoiceController::class);
     //route for the bulk store
