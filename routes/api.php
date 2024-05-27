@@ -13,4 +13,6 @@ Route::get('/user', function (Request $request) {
 Route::group(['prefix'=> 'v1', 'namespace'=>'App\Http\Controllers\Api\V1'], function () {
     Route::apiResource('customers',CustomerController::class);
     Route::apiResource('invoices', InvoiceController::class);
+    //route for the bulk store
+    Route::post('invoices/bulk',['uses'=>'InvoiceController@bulkStore']);
 });

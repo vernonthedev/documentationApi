@@ -10,6 +10,8 @@ use App\Http\Resources\V1\InvoiceResource;
 use App\Http\Resources\V1\InvoiceCollection;
 use Illuminate\Http\Request;
 use App\Filters\V1\InvoicesFilter;
+use Illuminate\Support\Arr;
+use App\Http\Requests\V1\BulkStoreInvoiceRequest;
 
 class InvoiceController extends Controller
 {
@@ -52,6 +54,20 @@ class InvoiceController extends Controller
     public function store(StoreInvoiceRequest $request)
     {
         //
+    }
+
+     /**
+     * Accept and store the data received in bulk to the database
+     */
+    public function bulkStore(BulkStoreInvoiceRequest $request){
+        // turn the api inserted data into a collection for easier working with since we can map the 
+        //different camelCase vars to their relevant table column fields
+        $bulk = collect($request->all())->map(function($arr, $key){
+            //remove these fields from the collection incase theyre still in camelCase 
+            //but then send them for conversion and modification
+            return Arr::except($arr, ['customerId', 'billedDate', 'paidDate']);
+        });
+        Invoice::insert($bulk->toArray());
     }
 
     /**
