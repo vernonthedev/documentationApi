@@ -1,6 +1,5 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-
 API Documentation V1 [Version One]
 ====================
 
@@ -60,13 +59,22 @@ The API is organized with a base URI of ```/api/v1```. Here's a breakdown of the
 - ```PATCH /invoices/{id}```: Update a single existing invoice field.
 - ```DELETE /invoices/{id}```: Delete a invoice.
 
+![Screenshot from 2024-05-27 13-47-55](https://github.com/vernonthedev/documentationApi/assets/108737724/5665d609-404b-4420-8257-733ea902f9c9)
+
 
 **Additional Features**
 - Bulk Invoice Insertion
 - Customer and Invoice Filtering using operator custom patterns..
 > [For more info, please refer to the more detailed api documentation.](https://vernonthedev.github.io/api/docs)
 
+![Screenshot from 2024-05-27 13-48-26](https://github.com/vernonthedev/documentationApi/assets/108737724/93bfc2b8-28af-47da-9e23-eb114cd972aa)
+- Documentation Home page
+
+
+
 **Additional Notes:**
+![Screenshot from 2024-05-27 13-48-26](https://github.com/vernonthedev/documentationApi/assets/108737724/a5e87556-3237-44ab-a60b-7254417e7bbd)
+
 
 Specific details about request parameters and response structures can be found in the controller code within your project.
 Error responses will be formatted as JSON objects with an error message and relevant details (e.g., validation errors).
