@@ -1,0 +1,298 @@
+openapi: 3.0.3
+info:
+  title: 'Custo Api'
+  description: 'A Laravel API for managing customers, invoices, secure user authentication with sanctum ensures protected access to API endpoints.'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/user:
+    get:
+      summary: ''
+      operationId: getApiUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+  /api/v1/customers:
+    get:
+      summary: 'Display a listing of the resource.'
+      operationId: displayAListingOfTheResource
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: nostrum
+                type:
+                  type: string
+                  description: ''
+                  example: B
+                  enum:
+                    - I
+                    - B
+                    - i
+                    - b
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: howe.davion@example.org
+                address:
+                  type: string
+                  description: ''
+                  example: debitis
+                city:
+                  type: string
+                  description: ''
+                  example: enim
+                state:
+                  type: string
+                  description: ''
+                  example: aspernatur
+                postalCode:
+                  type: string
+                  description: ''
+                  example: et
+              required:
+                - name
+                - type
+                - email
+                - address
+                - city
+                - state
+                - postalCode
+  '/api/v1/customers/{id}':
+    get:
+      summary: 'Display the specified resource.'
+      operationId: displayTheSpecifiedResource
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+    put:
+      summary: 'Update the specified resource in storage.'
+      operationId: updateTheSpecifiedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: recusandae
+                type:
+                  type: string
+                  description: ''
+                  example: b
+                  enum:
+                    - I
+                    - B
+                    - i
+                    - b
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: giles.casper@example.net
+                address:
+                  type: string
+                  description: ''
+                  example: enim
+                city:
+                  type: string
+                  description: ''
+                  example: et
+                state:
+                  type: string
+                  description: ''
+                  example: quia
+                postalCode:
+                  type: string
+                  description: ''
+                  example: odit
+              required:
+                - name
+                - type
+                - email
+                - address
+                - city
+                - state
+                - postalCode
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the customer.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/v1/invoices:
+    get:
+      summary: 'Display a listing of the resource.'
+      operationId: displayAListingOfTheResource
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+  '/api/v1/invoices/{id}':
+    get:
+      summary: 'Display the specified resource.'
+      operationId: displayTheSpecifiedResource
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+    put:
+      summary: 'Update the specified resource in storage.'
+      operationId: updateTheSpecifiedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the invoice.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/v1/invoices/bulk:
+    post:
+      summary: 'Accept and store the data received in bulk to the database'
+      operationId: acceptAndStoreTheDataReceivedInBulkToTheDatabase
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+tags:
+  -
+    name: Endpoints
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.'
+security:
+  -
+    default: []
