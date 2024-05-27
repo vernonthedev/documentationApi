@@ -1,66 +1,89 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+API Documentation V1 [Version One]
+====================
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This document outlines the functionalities and usage of the Laravel API for managing customers and invoices. Secure access is ensured through Laravel Sanctum token authentication.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Technologies Used
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [Laravel Framework](https://laravel.com/docs/11.x/installation).
+- [Laravel Sanctum](https://laravel.com/docs/11.x/sanctum).
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Authentication
+The API utilizes Laravel Sanctum for token-based authentication. To access protected endpoints, users need to generate a token using their login credentials.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Generating a Token:**
+- Send a GEt request to ```/setup``` and it will generate thsi default user that will be used to generate the tokens that will be used to access the tokens:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```json
+{
+  "email": "admin@admin.com",
+  "password": "password"
+}
+```
 
-## Laravel Sponsors
+- A successful response will include a token field containing the 3 access tokens.
+- [ ] Basic token
+- [x] Admin token
+- [x] Update token
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Including the Token in Requests:**
+- Include the access token in the authorization header of all subsequent requests. Here's an example using curl:
+```bash
+curl -X GET https://your-api-domain/api/v1/customers \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+__Important Note__: 
+>Store the access token securely and avoid exposing it in client-side code.
 
-### Premium Partners
+### API Endpoints
+The API is organized with a base URI of ```/api/v1```. Here's a breakdown of the available endpoints:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+**Customers:**
 
-## Contributing
+- ```GET /customers```: Retrieve a list of all customers.
+- ```GET /customers/{id}```: Get details of a specific customer by their ID.
+- ```POST /customers```: Create a new customer.
+- ```PUT /customers/{id}```: Update an existing customer[all fields].
+- ```PATCH /customers/{id}```: Update a single existing customer field.
+- ```DELETE /customers/{id}```: Delete a customer.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Invoices:**
 
-## Code of Conduct
+- ```GET /invoices```: Retrieve a list of all invoices.
+- ```GET /invoices/{id}```: Get details of a specific invoice by their ID.
+- ```POST /invoices```: Create a new invoice.
+- ```PUT /invoices/{id}```: Update an existing invoice[all fields].
+- ```PATCH /invoices/{id}```: Update a single existing invoice field.
+- ```DELETE /invoices/{id}```: Delete a invoice.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+**Additional Features**
+- Bulk Invoice Insertion
+- Customer and Invoice Filtering using operator custom patterns..
+> [For more info, please refer to the more detailed api documentation.](https://vernonthedev.github.io/api/docs)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Additional Notes:**
 
-## License
+Specific details about request parameters and response structures can be found in the controller code within your project.
+Error responses will be formatted as JSON objects with an error message and relevant details (e.g., validation errors).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+***Example Usage:***
+- Generate a token using the ```/login``` endpoint.
+- Use the retrieved token in subsequent requests with the Authorization header.
+- Refer to the specific endpoint documentation for details on request parameters and expected responses.
+
+This is a basic documentation structure. You can expand on it by including:
+
+- Specific request parameters for each endpoint (e.g., required fields, data types).
+- Expected response structure (including data fields and their meanings).
+- Authentication error codes and their descriptions.
+- Example code snippets for making API calls in different languages.
+- Remember to update this documentation as your API evolves and add new functionalities.
+
+> Thanks for checking out my repo 
+
+**vernonthedev**
