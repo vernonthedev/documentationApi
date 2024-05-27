@@ -11,9 +11,12 @@ class StoreCustomerRequest extends FormRequest
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
-    {
-        //only allow authorized users to create a customer
-        return true;
+    { 
+        //only allow authorized users with tokens to create a customer
+        $user = $this->user();
+        //check the authorization roles of the token
+        return $user != null && $user->tokenCan("create");
+       
     }
 
     /**

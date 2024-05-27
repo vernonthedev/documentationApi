@@ -12,7 +12,10 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        //only allow authorized users with tokens to create a customer
+        $user = $this->user();
+        //check the authorization roles of the token
+        return $user != null && $user->tokenCan("update");
     }
 
     /**
