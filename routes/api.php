@@ -10,7 +10,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // Api Routes with the following format = api/v1
-Route::group(['prefix'=> 'v1', 'namespace'=>'App\Http\Controllers\Api\V1'], function () {
+// and protect our endpoints with sanctum
+Route::group(['prefix'=> 'v1', 'namespace'=>'App\Http\Controllers\Api\V1', 'auth:sanctum'], function () {
     Route::apiResource('customers',CustomerController::class);
     Route::apiResource('invoices', InvoiceController::class);
     //route for the bulk store
