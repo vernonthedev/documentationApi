@@ -1,5 +1,1 @@
-{
-"admin":"1|Y4t7YKTTn3mf40aquQ2fYHr1m3pbLIZwBi5cr0ISed313b48",
-"update":"2|YBKrjJLL7a4xWvtbIzGZLzMi2gpijnpP6xM37KA17c093435",
-"basic":"3|xrJZEdE1oYe34noLWCnAV2GivNSypQfW72CdXBLQf8209aed"
-}
+
